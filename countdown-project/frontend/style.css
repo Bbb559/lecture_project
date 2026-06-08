@@ -1,0 +1,244 @@
+/* ============================================
+   倒计时页面 — 样式表
+   深色主题 + 发光数字效果 + 响应式布局
+   ============================================ */
+
+/* ---------- CSS 变量 ---------- */
+:root {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --color-accent: #e94560;
+    --color-accent-hover: #ff6b81;
+    --color-text: #ffffff;
+    --color-text-secondary: #a0a0b0;
+    --color-success: #2ecc71;
+    --color-progress: #0f3460;
+    --color-btn-start: #e94560;
+    --color-btn-reset: #533483;
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+    --font-display-size: 8rem;
+}
+
+/* ---------- 全局重置 ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--color-text);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ---------- 容器 ---------- */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+/* ---------- 标题 ---------- */
+.title {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+/* ---------- 倒计时数字显示 ---------- */
+.countdown-display {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3em;
+    padding: 2rem 3rem;
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    box-shadow:
+        0 0 40px rgba(233, 69, 96, 0.15),
+        0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: box-shadow var(--transition-speed) ease;
+}
+
+.countdown-number {
+    font-size: var(--font-display-size);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-accent);
+    text-shadow:
+        0 0 20px rgba(233, 69, 96, 0.6),
+        0 0 40px rgba(233, 69, 96, 0.3),
+        0 0 80px rgba(233, 69, 96, 0.15);
+    line-height: 1;
+    transition: color var(--transition-speed) ease,
+                text-shadow var(--transition-speed) ease;
+    min-width: 2ch;
+    text-align: center;
+}
+
+.countdown-unit {
+    font-size: 2rem;
+    color: var(--color-text-secondary);
+}
+
+/* ---------- 进度条 ---------- */
+.progress-bar-container {
+    width: 100%;
+    max-width: 360px;
+    height: 6px;
+    background: var(--color-progress);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 100%;
+    background: var(--color-accent);
+    border-radius: 3px;
+    transition: width 1s linear;
+}
+
+/* ---------- 按钮组 ---------- */
+.btn-group {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.btn {
+    padding: 0.9rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition:
+        background-color var(--transition-speed) ease,
+        transform var(--transition-speed) ease,
+        box-shadow var(--transition-speed) ease,
+        opacity var(--transition-speed) ease;
+    outline: none;
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+.btn-start {
+    background-color: var(--color-btn-start);
+    color: var(--color-text);
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+}
+
+.btn-start:hover:not(:disabled) {
+    background-color: var(--color-accent-hover);
+    box-shadow: 0 6px 20px rgba(233, 69, 96, 0.5);
+}
+
+.btn-start:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-reset {
+    background-color: var(--color-btn-reset);
+    color: var(--color-text);
+    box-shadow: 0 4px 15px rgba(83, 52, 131, 0.3);
+}
+
+.btn-reset:hover {
+    background-color: #6c4fa5;
+    box-shadow: 0 6px 20px rgba(83, 52, 131, 0.5);
+}
+
+/* ---------- 倒计时归零闪烁动画 ---------- */
+.countdown-number.finished {
+    color: #ff0000;
+    animation: blink 0.5s ease-in-out infinite alternate;
+    text-shadow:
+        0 0 20px rgba(255, 0, 0, 0.8),
+        0 0 40px rgba(255, 0, 0, 0.5),
+        0 0 80px rgba(255, 0, 0, 0.3);
+}
+
+.countdown-display.finished {
+    box-shadow:
+        0 0 40px rgba(255, 0, 0, 0.3),
+        0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes blink {
+    0%   { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+/* ---------- 后端状态指示 ---------- */
+.backend-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #f39c12;
+    transition: background-color var(--transition-speed) ease;
+}
+
+.status-dot.online {
+    background-color: var(--color-success);
+}
+
+.status-dot.offline {
+    background-color: var(--color-accent);
+}
+
+/* ---------- 响应式适配 ---------- */
+@media (max-width: 480px) {
+    :root {
+        --font-display-size: 5rem;
+    }
+
+    .container {
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .title {
+        font-size: 1.4rem;
+    }
+
+    .countdown-display {
+        padding: 1.5rem 2rem;
+    }
+
+    .countdown-unit {
+        font-size: 1.4rem;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

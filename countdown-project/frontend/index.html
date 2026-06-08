@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倒计时 - 60秒</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">倒计时</h1>
+
+        <div class="countdown-display" id="countdownDisplay">
+            <span class="countdown-number" id="countdownNumber">60</span>
+            <span class="countdown-unit">秒</span>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-start" id="btnStart" title="开始倒计时">开 始</button>
+            <button class="btn btn-reset" id="btnReset" title="复位到60秒">复 位</button>
+        </div>
+
+        <div class="backend-status" id="backendStatus">
+            <span class="status-dot"></span>
+            <span class="status-text">检查后端连接...</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
